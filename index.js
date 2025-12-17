@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
+import './cron/emailCron.js';
+
 
 // ✅ IMPORT ROUTES (MATCH FILE NAMES EXACTLY)
 import authRoutes from './routes/authRoutes.js';

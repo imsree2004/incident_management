@@ -19,6 +19,7 @@
     "imap-simple": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mailparser": "^3.7.5",
+    "node-cron": "^4.2.1",
     "node-imap": "^0.9.6",
     "nodemailer": "^7.0.9",
     "pg": "^8.16.3",
