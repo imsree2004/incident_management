@@ -17,6 +17,7 @@ app.use(express.json());
 // routes
 app.use('/api', authRoutes);
 app.use('/api', emailRoutes);
+app.use("/tickets", ticketRoutes);
 
 // health check
 app.get('/', (req, res) => {
