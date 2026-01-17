@@ -20,7 +20,11 @@ const Complaint = sequelize.define('Complaint', {
   forward_payload: { type: DataTypes.JSON, allowNull: true },
 
   // store receive timestamp
-  received_at: { type: DataTypes.DATE, allowNull: true }
+  received_at: { type: DataTypes.DATE, allowNull: true },
+  ticket_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  }
 }, {
   indexes: [
     { fields: ['message_id'] },

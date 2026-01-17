@@ -1,11 +1,18 @@
-const express = require("express");
+import express from "express";
+import {
+  createTicket,
+  getAllTickets,
+  getTicketById,
+  updateStatus,
+  updateClassification
+} from "../controllers/ticketController.js";
+
 const router = express.Router();
-const ticketController = require("../controllers/ticketController");
 
-router.post("/", ticketController.createTicket);
-router.get("/", ticketController.getAllTickets);
-router.get("/:id", ticketController.getTicketById);
-router.put("/:id/status", ticketController.updateStatus);
+router.post("/", createTicket);
+router.get("/", getAllTickets);
+router.get("/:id", getTicketById);
+router.put("/:id/status", updateStatus);
+router.put("/:id/classification", updateClassification);
 
-
-module.exports = router;
+export default router;

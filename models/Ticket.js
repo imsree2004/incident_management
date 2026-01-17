@@ -1,11 +1,18 @@
-module.exports = (sequelize, DataTypes) => {
-  const Ticket = sequelize.define("Ticket", {
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db.js";
+  
+const Ticket = sequelize.define("Ticket", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
 
+    ticket_number: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
     email_id: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -15,20 +22,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-
-    raw_email: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-
+    
     summary: {
       type: DataTypes.TEXT,
       allowNull: true
     },
 
     status: {
-      type: DataTypes.ENUM("OPEN", "IN_PROGRESS", "RESOLVED"),
-      defaultValue: "OPEN"
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "OPEN",
+      validate: {
+        isIn: [["OPEN", "IN_PROGRESS", "RESOLVED"]]
+      }
     },
 
     severity: {
@@ -50,7 +56,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     }
-  });
+});
 
-  return Ticket;
-};
+export default Ticket;
