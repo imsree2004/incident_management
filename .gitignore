@@ -1,0 +1,16 @@
+# =========================
+# ML artifacts (do not track)
+# =========================
+ml/models/
+ml/data/
+models/
+data/
+
+# Serialized ML models
+*.pkl
+*.joblib
+*.h5
+
+# Python cache
+__pycache__/
+.ipynb_checkpoints/
