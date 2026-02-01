@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "complaint_text": "Water leakage near block C since yesterday",
+    "department": "Maintenance",
+    "severity": "High"
+  },
+  {
+    "id": 2,
+    "complaint_text": "Street light near hostel gate not working",
+    "department": "Electrical",
+    "severity": "Medium"
+  },
+  {
+    "id": 3,
+    "complaint_text": "WiFi connection is very slow in library",
+    "department": "IT Support",
+    "severity": "Medium"
+  },
+  {
+    "id": 4,
+    "complaint_text": "Unable to login to student portal",
+    "department": "IT Support",
+    "severity": "High"
+  },
+  {
+    "id": 5,
+    "complaint_text": "Room cleaning has not been done for three days",
+    "department": "Housekeeping",
+    "severity": "Medium"
+  },
+  {
+    "id": 6,
+    "complaint_text": "Fan not working in room 214",
+    "department": "Electrical",
+    "severity": "Low"
+  },
+  {
+    "id": 7,
+    "complaint_text": "Overflowing drainage near mess area",
+    "department": "Maintenance",
+    "severity": "High"
+  },
+  {
+    "id": 8,
+    "complaint_text": "AC not cooling properly in computer lab",
+    "department": "Electrical",
+    "severity": "Medium"
+  },
+  {
+    "id": 9,
+    "complaint_text": "Noise disturbance in hostel during night",
+    "department": "Hostel Office",
+    "severity": "Low"
+  },
+  {
+    "id": 10,
+    "complaint_text": "Website is showing internal server error",
+    "department": "IT Support",
+    "severity": "High"
+  },
+  {
+    "id": 11,
+    "complaint_text": "Garbage not collected near hostel block",
+    "department": "Maintenance",
+    "severity": "Medium"
+  },
+  {
+    "id": 12,
+    "complaint_text": "Broken chair in classroom",
+    "department": "Administration",
+    "severity": "Low"
+  },
+  {
+    "id": 13,
+    "complaint_text": "Water supply completely stopped in hostel",
+    "department": "Maintenance",
+    "severity": "High"
+  },
+  {
+    "id": 14,
+    "complaint_text": "Password reset link not working",
+    "department": "IT Support",
+    "severity": "Medium"
+  },
+  {
+    "id": 15,
+    "complaint_text": "Washroom hygiene is very poor",
+    "department": "Housekeeping",
+    "severity": "High"
+  },
+  {
+    "id": 16,
+    "complaint_text": "Projector not working in seminar hall",
+    "department": "Electrical",
+    "severity": "Medium"
+  },
+  {
+    "id": 17,
+    "complaint_text": "Internet disconnected frequently in hostel",
+    "department": "IT Support",
+    "severity": "Medium"
+  },
+  {
+    "id": 18,
+    "complaint_text": "Ceiling leaking water during rain",
+    "department": "Maintenance",
+    "severity": "High"
+  },
+  {
+    "id": 19,
+    "complaint_text": "Complaint regarding rude behavior at office",
+    "department": "Administration",
+    "severity": "Low"
+  },
+  {
+    "id": 20,
+    "complaint_text": "Lights flickering continuously in corridor",
+    "department": "Electrical",
+    "severity": "Low"
+  },
+  {
+    "id": 21,
+    "complaint_text": "Bed bugs issue reported in hostel room",
+    "department": "Housekeeping",
+    "severity": "High"
+  },
+  {
+    "id": 22,
+    "complaint_text": "Unable to submit assignment due to portal error",
+    "department": "IT Support",
+    "severity": "High"
+  },
+  {
+    "id": 23,
+    "complaint_text": "Drinking water tap is broken near canteen",
+    "department": "Maintenance",
+    "severity": "Medium"
+  },
+  {
+    "id": 24,
+    "complaint_text": "Classroom door lock is damaged",
+    "department": "Administration",
+    "severity": "Low"
+  },
+  {
+    "id": 25,
+    "complaint_text": "Bathroom water overflowing on floor",
+    "department": "Maintenance",
+    "severity": "High"
+  },
+  {
+    "id": 26,
+    "complaint_text": "Laptop charging point not working",
+    "department": "Electrical",
+    "severity": "Low"
+  },
+  {
+    "id": 27,
+    "complaint_text": "Email notifications not received from system",
+    "department": "IT Support",
+    "severity": "Medium"
+  },
+  {
+    "id": 28,
+    "complaint_text": "Hostel room cleaning skipped this week",
+    "department": "Housekeeping",
+    "severity": "Medium"
+  },
+  {
+    "id": 29,
+    "complaint_text": "Severe power outage in hostel block",
+    "department": "Electrical",
+    "severity": "High"
+  },
+  {
+    "id": 30,
+    "complaint_text": "Internet speed extremely slow during exams",
+    "department": "IT Support",
+    "severity": "High"
+  }
+]
