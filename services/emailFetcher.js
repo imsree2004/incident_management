@@ -2,6 +2,7 @@ import Imap from 'node-imap';
 import { simpleParser } from 'mailparser';
 import dotenv from 'dotenv';
 import Complaint from '../models/Complaint.js';
+import { handleAutoResponse } from './autoResponder.js';
 
 dotenv.config();
 
@@ -41,14 +42,23 @@ export const fetchEmailsInternal = async () => {
                     if (exists) return null;
                   }
 
-                  await Complaint.create({
-                    message_id: messageId,
-                    from: mail.from?.text || '',
-                    subject: mail.subject || '(No subject)',
-                    body: mail.text || mail.html || '',
-                    attachments: mail.attachments?.map(a => a.filename) || [],
-                    received_at: mail.date || new Date()
-                  });
+                 const complaint = await Complaint.create({
+  message_id: messageId,
+  from: mail.from?.text || '',
+  subject: mail.subject || '(No subject)',
+  body: mail.text || mail.html || '',
+  attachments: mail.attachments?.map(a => a.filename) || [],
+  received_at: mail.date || new Date()
+});
+
+// 🧪 DEMO SEVERITY (temporary)
+complaint.severity = 'Low';
+await complaint.save();
+
+// 🚀 AUTO RESPONSE
+await handleAutoResponse(complaint);
+
+
                 })
                 .catch(console.error);
 
