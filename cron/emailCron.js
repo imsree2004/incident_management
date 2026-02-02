@@ -1,11 +1,14 @@
 import cron from 'node-cron';
 import { fetchEmailsInternal } from '../services/emailFetcher.js';
 
-cron.schedule('*/5 * * * *', async () => {
-  console.log('⏰ Running email fetch cron...');
+console.log('🟢 Email cron initialized');
+
+cron.schedule('*/1 * * * *', async () => {
+  console.log('⏰ Cron triggered: fetching emails');
   try {
-    await fetchEmailsInternal();
+    const result = await fetchEmailsInternal();
+    console.log('📩 Cron result:', result);
   } catch (err) {
-    console.error('Cron email fetch failed:', err.message);
+    console.error('❌ Cron error:', err.message);
   }
 });
