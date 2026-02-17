@@ -1,0 +1,21 @@
+<div class="support-layout">
+
+  <!-- Single Top Bar -->
+<header class="top-bar">
+  <div class="left-section">
+    <h2 class="logo">AIIMS Support Console</h2>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/support/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/support/tickets" routerLinkActive="active">Tickets</a>
+  </nav>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </header>
+
+  <!-- Page Content -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

@@ -1,0 +1,39 @@
+<div *ngIf="isLoading">Loading ticket...</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div *ngIf="!isLoading && ticket">
+
+  <div class="card">
+    <h3>AI Summary</h3>
+    <p><strong>Category:</strong> {{ ticket.aiSummary.category }}</p>
+    <p><strong>Severity:</strong> {{ ticket.aiSummary.severity }}</p>
+    <p><strong>Confidence:</strong> {{ ticket.aiSummary.confidence }}</p>
+    <p>{{ ticket.aiSummary.description }}</p>
+  </div>
+
+  <div class="card">
+    <h3>AI Insights</h3>
+    <pre>{{ ticket.aiInsights | json }}</pre>
+  </div>
+
+  <div class="card">
+    <h3>Original Email</h3>
+    <button (click)="showEmail = !showEmail">
+      {{ showEmail ? 'Hide' : 'View' }} Email
+    </button>
+    <p *ngIf="showEmail">{{ ticket.originalEmail }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Reply</h3>
+    <textarea [(ngModel)]="replyText"></textarea>
+    <button (click)="sendReply()">Send Reply</button>
+  </div>
+
+  <div class="card">
+    <h3>Status</h3>
+    <button (click)="updateStatus('In Progress')">In Progress</button>
+    <button (click)="updateStatus('Resolved')">Resolved</button>
+  </div>
+
+</div>

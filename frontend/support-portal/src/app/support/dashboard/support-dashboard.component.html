@@ -1,0 +1,51 @@
+<h2 class="page-title">Support Dashboard</h2>
+
+<div class="stats-grid">
+  <div class="stat-box">
+    Assigned Tickets
+    <span>0</span>
+  </div>
+
+  <div class="stat-box">
+    Open Tickets
+    <span>0</span>
+  </div>
+
+  <div class="stat-box">
+    Resolved
+    <span>0</span>
+  </div>
+
+  <div class="stat-box">
+    Pending
+    <span>0</span>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div
+    class="tab"
+    [class.active]="activeTab === 'tickets'"
+    (click)="setTab('tickets')"
+  >
+    Tickets
+  </div>
+
+  <div
+    class="tab"
+    [class.active]="activeTab === 'resolved'"
+    (click)="setTab('resolved')"
+  >
+    Resolved
+  </div>
+</div>
+
+<!-- Tab Content -->
+<div *ngIf="activeTab === 'tickets'" class="card">
+  <p>Showing active tickets...</p>
+</div>
+
+<div *ngIf="activeTab === 'resolved'" class="card">
+  <p>Showing resolved tickets...</p>
+</div>

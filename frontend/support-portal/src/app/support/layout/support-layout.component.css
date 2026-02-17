@@ -1,0 +1,99 @@
+/* Page wrapper */
+.support-layout {
+  min-height: 100vh;
+  background: #f5f7fb; /* light professional background */
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* =========================
+   Top Bar (Header)
+========================= */
+.top-bar {
+  height: 56px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+   box-shadow: none;
+  border-bottom: 1px solid #e5e7eb;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Left section */
+.left-section .logo {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937; /* dark professional text */
+  margin: 0;
+}
+
+/* Navigation */
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b7280;
+  padding-bottom: 6px;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover 
+.nav-links a.active {
+   color: var(--violet-main);
+  font-weight: 600;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+   background: var(--violet-main);
+  border-radius: 2px;
+}
+
+/* Logout button */
+.logout-btn {
+ background: var(--violet-main);
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.logout-btn:hover {
+ background: var(--violet-main);
+  transform: translateY(-1px);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   Main Content Area
+========================= */
+.content {
+  padding: 32px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}

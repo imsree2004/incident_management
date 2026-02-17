@@ -1,0 +1,45 @@
+<h2 class="page-title">Tickets</h2>
+
+<!-- Loading -->
+<div *ngIf="isLoading" class="card">
+  Loading tickets...
+</div>
+
+<!-- Error -->
+<div *ngIf="!isLoading && errorMessage" class="card">
+  {{ errorMessage }}
+</div>
+
+<!-- Empty -->
+<div *ngIf="!isLoading && tickets.length === 0 && !errorMessage" class="card">
+  No tickets found
+</div>
+
+<!-- Ticket List -->
+<table *ngIf="!isLoading && tickets.length > 0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Summary</th>
+      <th>Severity</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr
+          *ngFor="let ticket of tickets"
+      (click)="openTicket(ticket.id)"
+      style="cursor: pointer"
+    >
+      <td>{{ ticket.id }}</td>
+      <td>{{ ticket.summary }}</td>
+      <td>{{ ticket.severity }}</td>
+      <td>
+        <span class="status" [ngClass]="ticket.status.toLowerCase()">
+          {{ ticket.status }}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
