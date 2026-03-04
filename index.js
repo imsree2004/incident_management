@@ -1,9 +1,9 @@
-import express from 'express';
 import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
 import sequelize from './config/db.js';
 import { startEmailListener } from './services/emailListener.js';
-
-dotenv.config();
 
 import './cron/autoResponseCron.js';
 

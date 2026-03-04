@@ -1,4 +1,3 @@
-// config/db.js
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
@@ -13,19 +12,10 @@ const sequelize = new Sequelize(
     port: process.env.DB_PORT,
     dialect: 'postgres',
     logging: false,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    },
     define: {
-      schema: 'public'          // 🔴 FORCE schema
+      schema: 'public'
     }
   }
 );
-
-// 🔴 ALSO force search_path
-await sequelize.query('SET search_path TO public;');
 
 export default sequelize;
