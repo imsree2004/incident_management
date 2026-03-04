@@ -1,11 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import sequelize from './config/db.js';
+import { startEmailListener } from './services/emailListener.js';
 
 dotenv.config();
 
-// cron job
-import './cron/emailCron.js';
+import './cron/autoResponseCron.js';
 
 // routes
 import authRoutes from './routes/authRoutes.js';
@@ -23,23 +23,8 @@ app.get('/', (req, res) => {
   res.send('Incident Management Server Running');
 });
 
-// debug routes
-console.log('--- Registered routes ---');
-if (app._router && app._router.stack) {
-  app._router.stack
-    .filter(r => r.route)
-    .forEach(r => {
-      const methods = Object.keys(r.route.methods)
-        .map(m => m.toUpperCase())
-        .join(', ');
-      console.log(methods, r.route.path);
-    });
-}
-console.log('-------------------------');
-
 const PORT = process.env.PORT || 5000;
 
-// 🔥 IMPORTANT: DB INIT + SYNC
 (async () => {
   try {
     await sequelize.authenticate();
@@ -50,7 +35,11 @@ const PORT = process.env.PORT || 5000;
 
     app.listen(PORT, () => {
       console.log(`🚀 Server listening on ${PORT}`);
+
+      // 🚀 START EMAIL LISTENER AFTER SERVER STARTS
+      startEmailListener();
     });
+
   } catch (error) {
     console.error('❌ Database connection failed:', error);
   }

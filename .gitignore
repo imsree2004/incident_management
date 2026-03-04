@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # =========================
 # ML artifacts (do not track)
 # =========================
@@ -15,3 +16,14 @@ data/
 # Python cache
 __pycache__/
 .ipynb_checkpoints/
+=======
+node_modules/
+ml-venv/
+.env
+*.log
+__pycache__/
+*.pyc
+coverage/
+dist/
+build/
+>>>>>>> 9a450215 (Updated auto-response module and email integration)

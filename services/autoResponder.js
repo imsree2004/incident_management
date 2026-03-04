@@ -1,40 +1,42 @@
 import { detectIssueType } from '../utils/issueDetector.js';
 import { autoResponseTemplates } from '../utils/autoResponseTemplates.js';
+import { handleAIResponse } from "./aiResponder.js";
 import { sendMail } from './mailer.js';
 
 export async function handleAutoResponse(complaint) {
-  console.log('➡ handleAutoResponse called');
 
-  if (complaint.severity !== 'Low') {
-    console.log('⛔ Not low severity');
-    return;
-  }
+  if (complaint.severity !== 'Low') return;
+  if (complaint.autoResponseSent) return;
 
-  if (complaint.autoResponseSent) {
-    console.log('⛔ Already responded');
-    return;
-  }
+  const recipient = complaint.from;
 
-  const issueType = detectIssueType(complaint.body);
-  const template = autoResponseTemplates[issueType];
-
-  if (!template) {
-    console.log('❌ No template found for issue type');
-    return;
-  }
-
-  await sendMail(
-    complaint.from,
-    template.subject,
-    template.body
+  const issueType = detectIssueType(
+    (complaint.subject || '') + ' ' + (complaint.body || '')
   );
 
-  complaint.autoResponseSent = true;
-  complaint.autoResponseType = 'TEMPLATE';
-  complaint.status = 'Auto-Handled';
+  const template = autoResponseTemplates[issueType];
 
-  await complaint.save();
+  if (template) {
 
-  console.log('✅ Auto-response sent');
+    await sendMail(
+      recipient,
+      template.subject,
+      template.body
+    );
+
+    complaint.autoResponseSent = true;
+    complaint.autoResponseType = 'TEMPLATE';
+    complaint.autoResponseTime = new Date();
+    complaint.status = 'Auto-Handled';
+
+    await complaint.save();
+
+    console.log(
+      `✅ Template response sent for complaint ${complaint.id}`
+    );
+
+    return;
+  }
+
+  await handleAIResponse(complaint);
 }
-
