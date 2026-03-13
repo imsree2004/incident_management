@@ -1,0 +1,124 @@
+<div class="dashboard-shell">
+  <div *ngIf="notification$ | async as notification" class="toast" [ngClass]="notification.type">
+    {{ notification.message }}
+  </div>
+
+  <aside class="sidebar">
+    <div class="brand">AIIMS Admin Console</div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-title">Admin Panel</div>
+        <div class="topbar-breadcrumb">Admin / Dashboard</div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="user-menu" (click)="toggleMenu()">
+          <span class="user-icon">👤</span>
+          <span class="username">{{ (currentAdmin$ | async)?.username || 'Administrator' }}</span>
+        </div>
+
+        <div class="dropdown-menu" *ngIf="menuOpen">
+          <button type="button" class="dropdown-item" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="dashboard-header">
+        <h1 class="dashboard-page-title">Admin Dashboard</h1>
+        <p class="page-subtitle">
+          Overview of incident processing and operational performance
+          <ng-container *ngIf="currentAdmin$ | async as currentAdmin">
+            for {{ currentAdmin.username }}
+          </ng-container>
+        </p>
+      </div>
+
+      <div *ngIf="isLoading" class="state-card">
+        <h3>Loading dashboard...</h3>
+        <p>Please wait while we fetch your latest admin metrics.</p>
+      </div>
+
+      <div *ngIf="!isLoading && errorMessage" class="state-card error-state">
+        <h3>Unable to load dashboard</h3>
+        <p>{{ errorMessage }}</p>
+        <button type="button" class="action-btn" (click)="retryLoad()">Retry</button>
+      </div>
+
+      <ng-container *ngIf="!isLoading && !errorMessage">
+        <div *ngIf="hasMetricData(); else emptyMetrics" class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Total Emails Processed</div>
+            <div class="kpi-value">{{ metrics.totalEmails }}</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Processed Today</div>
+            <div class="kpi-value">{{ metrics.processedToday }}</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Open Tickets</div>
+            <div class="kpi-value">{{ metrics.openTickets }}</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Auto Replies Sent</div>
+            <div class="kpi-value">{{ metrics.autoReplies }}</div>
+          </div>
+        </div>
+
+        <ng-template #emptyMetrics>
+          <div class="state-card empty-state">
+            <h3>No dashboard activity yet</h3>
+            <p>Metrics will appear here once emails are processed and tickets are created.</p>
+            <button type="button" class="action-btn" (click)="retryLoad()">Refresh</button>
+          </div>
+        </ng-template>
+
+        <div class="overview-section">
+          <div class="section-header">
+            <h2>Operations Overview</h2>
+          </div>
+
+          <div class="tabs-container">
+            <div class="tab-item" [class.active]="activeTab === 'operations'" (click)="setTab('operations')">
+              Operations
+            </div>
+
+            <div class="tab-item" [class.active]="activeTab === 'tickets'" (click)="setTab('tickets')">
+              Ticket Flow
+            </div>
+          </div>
+
+          <div class="tab-content">
+            <div *ngIf="activeTab === 'operations'" class="content-card">
+              <h3>{{ metrics.totalEmails }} emails processed overall</h3>
+              <p>
+                {{ metrics.processedToday }} were processed today and {{ metrics.autoReplies }} automated replies
+                were sent through the incident pipeline.
+              </p>
+              <button type="button" class="action-btn secondary" (click)="retryLoad()">Refresh metrics</button>
+            </div>
+
+            <div *ngIf="activeTab === 'tickets'" class="content-card">
+              <h3>{{ metrics.openTickets }} tickets currently need attention</h3>
+              <p>
+                The admin workspace is tracking {{ metrics.openTickets }} open tickets while monitoring response
+                automation and incoming email volume.
+              </p>
+              <button type="button" class="action-btn secondary" (click)="retryLoad()">Reload ticket summary</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

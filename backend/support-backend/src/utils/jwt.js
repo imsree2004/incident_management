@@ -1,0 +1,21 @@
+import jwt from 'jsonwebtoken';
+
+const getJwtSecret = () => {
+  const secret = process.env.JWT_SECRET;
+
+  if (!secret) {
+    throw new Error('JWT_SECRET is not configured');
+  }
+
+  return secret;
+};
+
+export const generateToken = (payload) => {
+  return jwt.sign(payload, getJwtSecret(), {
+    expiresIn: '1d'
+  });
+};
+
+export const verifyToken = (token) => {
+  return jwt.verify(token, getJwtSecret());
+};

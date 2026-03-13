@@ -1,0 +1,96 @@
+<div class="login-wrapper">
+
+  <div class="login-scene">
+
+    <!-- BLUE BACK PANEL -->
+    <div class="blue-panel">
+      <div class="blue-content">
+
+        <ng-container *ngIf="!isRegister">
+          <h2>Welcome Admin</h2>
+          <p>Manage users, tickets and analytics securely</p>
+          <button class="panel-btn" (click)="toggleMode()">
+            CREATE ACCOUNT
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="isRegister">
+          <h2>Admin Registration</h2>
+          <p>Create a new administrator account</p>
+          <button class="panel-btn" (click)="toggleMode()">
+            SIGN IN
+          </button>
+        </ng-container>
+
+      </div>
+    </div>
+
+    <!-- FLOATING WHITE CARD -->
+    <div class="login-card">
+
+      <h2 class="card-title">
+        {{ isRegister ? 'Create Admin Account' : 'Admin Login' }}
+      </h2>
+
+      <div *ngIf="errorMessage" class="feedback-message error-message" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="feedback-message success-message" role="status">
+        {{ successMessage }}
+      </div>
+
+<form autocomplete="off" class="modern-form">
+
+  <!-- Username -->
+  <div class="input-field">
+    <input
+      type="text"
+      [(ngModel)]="username"
+      name="admin-username"
+      required
+    />
+    <label>Username </label>
+    <span class="focus-border"></span>
+  </div>
+
+  <!-- Email (Register only) -->
+  <div class="input-field" *ngIf="isRegister">
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="admin-email"
+      [required]="isRegister"
+    />
+    <label>Email Address</label>
+    <span class="focus-border"></span>
+  </div>
+
+  <!-- Password -->
+  <div class="input-field">
+    <input
+      type="password"
+      [(ngModel)]="password"
+      name="admin-password"
+      required
+    />
+    <label>Password</label>
+    <span class="focus-border"></span>
+  </div>
+
+  
+  <button
+    type="button"
+    class="login-btn"
+    (click)="submit()"
+    [disabled]="isLoading"
+  >
+    {{ isLoading ? 'Please wait...' : (isRegister ? 'Create Account' : 'LOG IN') }}
+  </button>
+
+</form>
+    </div>
+
+  </div>
+
+</div>

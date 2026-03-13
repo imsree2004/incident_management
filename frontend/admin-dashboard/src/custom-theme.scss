@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+
+/* Include core styles */
+@include mat.core();
+
+/* Define Blue Primary */
+$primary: mat.define-palette(mat.$blue-palette, 800);
+
+/* Use same Blue for Accent (NO PURPLE) */
+$accent: mat.define-palette(mat.$blue-palette, 600);
+
+/* Optional warn palette */
+$warn: mat.define-palette(mat.$red-palette);
+
+/* Create light theme */
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+/* Apply theme */
+@include mat.all-component-themes($theme);

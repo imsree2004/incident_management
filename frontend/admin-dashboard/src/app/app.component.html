@@ -1,0 +1,27 @@
+<div class="admin-layout">
+
+  <!-- Global Header -->
+  <header class="admin-header">
+
+    <div class="container header-inner">
+
+      <div class="logo">
+        AIIMS Admin Console
+      </div>
+
+      <nav class="nav-links">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/users" routerLinkActive="active">Users</a>
+        <a routerLink="/logs" routerLinkActive="active">Logs</a>
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="admin-main">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

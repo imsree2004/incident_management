@@ -1,0 +1,219 @@
+/* =====================================================
+   AIIMS ENTERPRISE DESIGN SYSTEM (CLEAN BLUE THEME)
+===================================================== */
+
+/* ========== COLOR SYSTEM ========== */
+:root {
+  --primary: #1e3a8a;         /* main blue */
+  --primary-dark: #0f172a;    /* deep navy */
+  --primary-light: #e0e7ff;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --soft-bg: #f3f4f6;         /* light grey */
+  --light-bg: #ffffff;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --border-light: #e5e7eb;
+  --danger: #dc2626;
+
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 15px 35px rgba(15, 23, 42, 0.08);
+  --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--soft-bg);
+}
+
+body {
+  font-family: "Inter", Roboto, "Helvetica Neue", sans-serif;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* ========== CONTAINER SYSTEM ========== */
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ========== SECTION SYSTEM ========== */
+.section {
+  padding: 100px 0;
+}
+
+/* HERO – Clean Blue (No Gradient) */
+.section.hero {
+  background: var(--primary);   /* solid blue */
+  color: #ffffff;
+  padding: 120px 0;
+}
+
+.section.light {
+  background: var(--light-bg);
+}
+
+.section.soft {
+  background: var(--soft-bg);
+}
+
+/* ========== TYPOGRAPHY SCALE ========== */
+.section-title-large {
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  max-width: 600px;
+  color: var(--text-muted);
+}
+
+.section.hero .section-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* ========== CARD SYSTEM ========== */
+.card {
+  background: var(--light-bg);
+  padding: 40px;
+  border-radius: 18px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-soft);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-4px);
+}
+
+/* ========== BUTTON SYSTEM ========== */
+button {
+  font-family: inherit;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* ========== GRID SYSTEM ========== */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* ========== TABLE SYSTEM ========== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+thead th {
+  text-align: left;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding: 12px 20px;
+}
+
+tbody tr {
+  background: var(--light-bg);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  transition: 0.25s ease;
+}
+
+tbody tr:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+tbody td {
+  padding: 20px;
+}
+
+/* ========== STATUS BADGE ========== */
+.badge {
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge.open {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+.badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge.resolved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* ========== NAV LINK BASE ========== */
+a {
+  text-decoration: none;
+  color: var(--text-main);
+  transition: 0.25s ease;
+}
+
+a:hover {
+  color: var(--primary);
+}
