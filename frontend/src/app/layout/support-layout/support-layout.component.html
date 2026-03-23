@@ -1,0 +1,65 @@
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- BRAND (Static on all pages) -->
+    <div class="brand">
+      AIIMS Support Console
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="sidebar-nav">
+
+      <a
+        routerLink="/support/dashboard"
+        routerLinkActive="active"
+      >
+        Dashboard
+      </a>
+
+      <a
+        routerLink="/support/tickets"
+        routerLinkActive="active"
+      >
+        Tickets
+      </a>
+
+    </nav>
+
+    
+
+  </aside>
+
+
+  <!-- MAIN AREA -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div class="topbar-left">
+        <div class="page-title">{{ pageTitle }}</div>
+        <div class="breadcrumb">{{ breadcrumb }}</div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="user-menu" (click)="toggleMenu()">
+          <span class="user-icon">👤</span>
+          <span class="username">{{ (currentUser$ | async)?.username || 'Support Agent' }}</span>
+        </div>
+
+        <div class="dropdown-menu" *ngIf="menuOpen">
+          <button class="dropdown-item" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,48 @@
+# Environment variables
+.env.local
+.env
+
+# Test-only routes
+routes/testRoutes.js
+node_modules
+ml/models/
+ml-service/models/
+*.pkl
+*.model
+*.bin
+*.pt
+*.h5
+__pycache__/
+.env
+
+# =========================
+# ML artifacts (do not track)
+# =========================
+ml/models/
+ml/data/
+models/
+data/
+
+# Serialized ML models
+*.pkl
+*.joblib
+*.h5
+*.bin
+
+# Python cache
+__pycache__/
+.ipynb_checkpoints/
+=======
+node_modules/
+ml-venv/
+.env
+*.log
+__pycache__/
+*.pyc
+coverage/
+dist/
+build/
+
+node_modules/
+frontend/.angular/cache/
+dist/
