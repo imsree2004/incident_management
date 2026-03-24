@@ -10,9 +10,18 @@ export async function routeTicket(ticketId) {
 
   let department = ticket.department;
 
+  if (department) {
+  department = department.toLowerCase().trim();
+}
+
+console.log("Before fallback:", {
+  department: ticket.department,
+  confidence: ticket.confidence
+});
+
   // fallback
   if (!department || ticket.confidence < 0.6) {
-    department = "General";
+    department = "general";
   }
 
   // ✅ get agents sorted by least load

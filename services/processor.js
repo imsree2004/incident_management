@@ -7,7 +7,6 @@ import { routeTicket } from "./ticketRoutingService.js";
 import { generateTicketNumber } from "../utils/ticketNumberGenerator.js";
 import User from "../models/User.js";
 import { handleAutoResponse } from './autoResponder.js';
-
 /* ======================================================
    1️⃣ NLP WORKER
    Picks: processing_stage = RAW
@@ -67,19 +66,19 @@ export const processML = async () => {
     }
 
     const mlResult = await runML(cleanedText);
-
+    
         const rawSeverity = mlResult.severity?.toLowerCase();
 
 let severity;
 
-if (rawSeverity === "low" || rawSeverity === "medium") {
+if (rawSeverity === "low") {
   severity = "Low";   // treat both as Low internally
 } else {
   severity = "High";
 }
     await complaint.update({
       severity,
-      department: mlResult.department,
+      department: mlResult.department.toLowerCase(),
       department_confidence: mlResult.department_confidence,
       processed_meta: {
         ...(complaint.processed_meta || {}),
@@ -88,6 +87,7 @@ if (rawSeverity === "low" || rawSeverity === "medium") {
     });
     console.log("ML RAW SEVERITY:", mlResult.severity);
 console.log("FINAL SEVERITY USED:", severity);
+console.log("ML department:", mlResult.department);
 
     console.log("✅ ML done:", complaint.id);
 
