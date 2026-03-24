@@ -14,3 +14,4 @@ export const fetchEmails = async (req, res) => {
     });
   }
 };
+

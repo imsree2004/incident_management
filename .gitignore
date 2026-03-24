@@ -20,6 +20,7 @@ __pycache__/
 # =========================
 ml/models/
 ml/data/
+
 data/
 ml/models/*.pkl
 
@@ -32,17 +33,28 @@ ml/models/*.pkl
 # Python cache
 __pycache__/
 .ipynb_checkpoints/
-=======
 node_modules/
 ml-venv/
 .env
-*.log
 __pycache__/
 *.pyc
 coverage/
 dist/
 build/
 
-node_modules/
 frontend/.angular/cache/
 dist/
+
+*.pyc
+
+# Virtual Environment & Node
+
+ml-venv/
+.env
+
+# Logs & Builds
+*.log
+coverage/
+dist/
+build/
+
