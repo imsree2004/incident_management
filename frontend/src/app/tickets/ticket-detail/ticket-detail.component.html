@@ -1,0 +1,141 @@
+<div class="ticket-page">
+  <div *ngIf="toastMessage" class="toast" [class.error]="toastMessage.type === 'error'">
+    {{ toastMessage.text }}
+  </div>
+
+  <div *ngIf="isLoading" class="state-card">
+    <div class="spinner"></div>
+    <h2>Loading ticket details...</h2>
+    <p>Please wait while we fetch the latest ticket information.</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="state-card">
+    <h2>Unable to load ticket</h2>
+    <p>{{ errorMessage }}</p>
+    <div class="state-actions">
+      <button class="secondary-btn" (click)="retryLoad()">Retry</button>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && !ticket" class="state-card">
+    <h2>Ticket not found</h2>
+    <p>The selected ticket could not be loaded.</p>
+  </div>
+
+  <section *ngIf="!isLoading && !errorMessage && ticket as currentTicket">
+    <div class="ticket-header">
+      <div class="title-block">
+        <h1>Ticket #{{ currentTicket.id }}</h1>
+        <p>AI-powered analysis and response management</p>
+      </div>
+
+      <div class="header-right">
+        <span class="meta-badge">{{ currentTicket.aiSummary.category }}</span>
+        <span class="meta-badge" [ngClass]="severityClass(currentTicket.aiSummary.severity)">
+          {{ currentTicket.aiSummary.severity }} Severity
+        </span>
+        <span class="meta-badge" [ngClass]="statusClass(currentTicket.status)">
+          {{ formatStatus(currentTicket.status) }}
+        </span>
+      </div>
+    </div>
+
+    <div class="ticket-container">
+      <div class="ticket-left">
+        <div class="ticket-card" [class.open]="summaryOpen">
+          <div class="card-header" (click)="summaryOpen = !summaryOpen">
+            <h3>AI Summary</h3>
+            <span>{{ summaryOpen ? '−' : '+' }}</span>
+          </div>
+
+          <div class="card-body">
+            <div class="info-row">
+              <span>Category</span>
+              <strong>{{ currentTicket.aiSummary.category }}</strong>
+            </div>
+
+            <div class="info-row">
+              <span>Severity</span>
+              <strong [ngClass]="severityClass(currentTicket.aiSummary.severity)">
+                {{ currentTicket.aiSummary.severity }}
+              </strong>
+            </div>
+
+            <p class="ticket-text">{{ currentTicket.aiSummary.description }}</p>
+          </div>
+        </div>
+
+
+        <div class="ticket-card" [class.open]="emailOpen">
+          <div class="card-header" (click)="emailOpen = !emailOpen">
+            <h3>Original Email</h3>
+            <span>{{ emailOpen ? '−' : '+' }}</span>
+          </div>
+
+          <div class="card-body">
+            <div class="email-box">{{ currentTicket.originalEmail }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-right">
+        <div class="action-card">
+          <h3>Ticket Actions</h3>
+
+          <div class="status-row">
+            <span>Current status</span>
+            <span class="status-badge" [ngClass]="statusClass(currentTicket.status)">
+              {{ formatStatus(currentTicket.status) }}
+            </span>
+          </div>
+
+          <div class="status-row">
+            <span>Confidence</span>
+            <strong>{{ getConfidencePercentage(currentTicket.aiSummary.confidence) }}%</strong>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getConfidencePercentage(currentTicket.aiSummary.confidence)"></div>
+          </div>
+
+          <div class="action-buttons">
+            <button
+              class="primary-btn"
+              (click)="updateStatus('IN_PROGRESS')"
+              [disabled]="isLoading || isSendingReply || isUpdatingStatus || currentTicket.status === 'IN_PROGRESS'"
+            >
+              {{ getStatusButtonLabel('IN_PROGRESS') }}
+            </button>
+
+            <button
+              class="success-btn"
+              (click)="updateStatus('RESOLVED')"
+              [disabled]="isLoading || isSendingReply || isUpdatingStatus || currentTicket.status === 'RESOLVED'"
+            >
+              {{ getStatusButtonLabel('RESOLVED') }}
+            </button>
+          </div>
+
+          <textarea
+            [(ngModel)]="replyText"
+            (ngModelChange)="replyValidationMessage = ''"
+            [disabled]="isLoading || isSendingReply || isUpdatingStatus"
+            placeholder="Write a professional reply to the customer..."
+          ></textarea>
+
+          <p *ngIf="replyValidationMessage" class="helper-text error">
+            {{ replyValidationMessage }}
+          </p>
+
+          <button
+            class="primary-btn"
+            (click)="sendReply()"
+            [disabled]="isLoading || isSendingReply || isUpdatingStatus"
+          >
+            {{ isSendingReply ? 'Sending...' : 'Send Reply' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

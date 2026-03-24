@@ -1,0 +1,39 @@
+services:
+
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: incident_management
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  ml:
+    build: ./ml-service
+    restart: always
+    ports:
+      - "8000:8000"
+
+  backend:
+    build: .
+    env_file:
+      - .env.docker
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - ml
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: sethulakshmi1
+      DB_NAME: incident_management
+      ML_URL: http://ml:8000
+
+volumes:
+  pgdata:

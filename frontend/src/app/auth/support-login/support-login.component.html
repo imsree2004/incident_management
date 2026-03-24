@@ -1,0 +1,116 @@
+<div class="login-wrapper">
+
+  <div class="login-scene">
+
+    <!-- BLUE BACK PANEL -->
+    <div class="blue-panel">
+      <div class="blue-content">
+
+        <ng-container *ngIf="!isRegister">
+          <h2>WELCOME!</h2>
+          <p>Enter your details and start journey with us</p>
+          <button class="panel-btn" (click)="toggleMode()">
+            SIGNUP
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="isRegister">
+          <h2>Join AIIMS Support</h2>
+          <p>Create your agent account and get started</p>
+          <button class="panel-btn" (click)="toggleMode()">
+            SIGN IN
+          </button>
+        </ng-container>
+
+      </div>
+    </div>
+
+    <!-- FLOATING WHITE CARD -->
+    <div class="login-card">
+
+      <h2>
+        {{ isRegister ? 'Create Support Account' : 'Login please' }}
+      </h2>
+
+      <div *ngIf="errorMessage" class="feedback-message error-message" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="feedback-message success-message">
+        {{ successMessage }}
+      </div>
+
+      <form autocomplete="off">
+
+        <!-- USERNAME -->
+        <div class="form-group icon-input">
+          <span class="icon">✉</span>
+          <input
+            type="text"
+            [(ngModel)]="username"
+            (ngModelChange)="clearMessages()"
+            name="support-username"
+            placeholder="Input your user name"
+          />
+        </div>
+
+        <!-- EMAIL (ONLY REGISTER) -->
+        <div class="form-group icon-input" *ngIf="isRegister">
+          <span class="icon">📧</span>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            (ngModelChange)="clearMessages()"
+            name="support-email"
+            placeholder="Email address"
+          />
+        </div>
+
+        <!-- DEPARTMENT (ONLY REGISTER) -->
+     <div class="form-group icon-input" *ngIf="isRegister">
+          <span class="icon">🏢</span>
+          <input
+            type="text"
+            [(ngModel)]="department"
+            (ngModelChange)="clearMessages()"
+            name="support-department"
+            placeholder="Department"
+          />
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group icon-input">
+          <span class="icon">🔑</span>
+          <input
+            type="password"
+            [(ngModel)]="password"
+            (ngModelChange)="clearMessages()"
+            name="support-password"
+            placeholder="Input your password"
+          />
+        </div>
+
+        <!-- BUTTON -->
+        <button
+          type="button"
+          class="login-btn"
+          (click)="submit()"
+          [disabled]="isLoading"
+        >
+          {{ isLoading ? 'Please wait...' : (isRegister ? 'Create Account' : 'LOG IN') }}
+        </button>
+
+        <!-- TOGGLE -->
+        <p class="toggle-text" (click)="toggleMode()">
+          {{ isRegister
+            ? 'Already have an account? Sign In'
+            : 'New support agent? Register' }}
+        </p>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

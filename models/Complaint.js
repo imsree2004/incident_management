@@ -18,6 +18,10 @@ department: {
   type: DataTypes.STRING,
   allowNull: true
 },
+department_confidence: {
+  type: DataTypes.FLOAT,
+  allowNull: true
+},
 processing_stage:{
   type:DataTypes.STRING,
   allowNull: false,

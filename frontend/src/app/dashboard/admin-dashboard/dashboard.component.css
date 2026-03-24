@@ -1,0 +1,363 @@
+/* ===============================
+   ADMIN DASHBOARD
+=============================== */
+
+.dashboard-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg-main);
+}
+
+/* ===============================
+   CONSOLE HEADER (top bar)
+=============================== */
+
+.console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1e3a8a;
+  padding: 0 40px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.console-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  min-width: 260px;
+  max-width: 360px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  color: #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+}
+
+.toast.success {
+  background: #15803d;
+}
+
+.toast.error {
+  background: #b91c1c;
+}
+
+.toast.info {
+  background: #1d4ed8;
+}
+
+/* ===============================
+   MAIN AREA
+=============================== */
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ===============================
+   TOPBAR (kept for user menu)
+=============================== */
+
+.topbar {
+  height: 80px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.topbar-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.topbar-breadcrumb {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.topbar-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  padding: 8px;
+  z-index: 20;
+}
+
+.dropdown-item {
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+.dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+/* ===============================
+   CONTENT
+=============================== */
+
+.content {
+  padding: 50px 60px;
+}
+
+/* ===============================
+   PAGE HEADER
+=============================== */
+
+.dashboard-header {
+  margin-bottom: 40px;
+}
+
+.dashboard-page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.state-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 32px;
+}
+
+.state-card h3 {
+  margin: 0 0 10px;
+}
+
+.state-card p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.error-state {
+  border-color: #fecaca;
+}
+
+.empty-state {
+  border-color: #dbeafe;
+}
+
+/* ===============================
+   KPI CARDS
+=============================== */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.kpi-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.kpi-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.kpi-value {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* ===============================
+   OVERVIEW SECTION
+=============================== */
+
+.overview-section {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* ===============================
+   TABS
+=============================== */
+
+.tabs-container {
+  display: inline-flex;
+  background: #f3f4f6;
+  border-radius: 50px;
+  padding: 6px;
+  margin-bottom: 30px;
+}
+
+.tab-item {
+  padding: 10px 26px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: 0.25s ease;
+}
+
+.tab-item:hover {
+  color: var(--primary);
+}
+
+.tab-item.active {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* ===============================
+   TAB CONTENT
+=============================== */
+
+.content-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.content-card h3 {
+  margin: 0 0 10px;
+}
+
+.content-card p {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.action-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(30, 58, 138, 0.25);
+}
+
+.action-btn.secondary {
+  background: #e0ecff;
+  color: var(--primary);
+}
+
+.action-btn.secondary:hover {
+  background: #cddfff;
+}
+
+@media (max-width: 1024px) {
+  .console-header {
+    padding: 0 20px;
+  }
+
+  .content {
+    padding: 24px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .toast {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-section,
+  .content-card,
+  .state-card {
+    padding: 24px;
+  }
+}

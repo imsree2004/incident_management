@@ -1,0 +1,63 @@
+<section class="ticket-list-page">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Assigned Tickets</h2>
+      <p class="page-subtitle">Track incoming incidents and open the ones that need action.</p>
+    </div>
+
+    <span *ngIf="!isLoading && tickets.length > 0" class="ticket-count">
+      {{ tickets.length }} ticket{{ tickets.length === 1 ? '' : 's' }}
+    </span>
+  </div>
+
+  <div *ngIf="isLoading" class="state-card">
+    <div class="spinner"></div>
+    <h3>Loading tickets...</h3>
+    <p>Please wait while we fetch the latest assigned tickets.</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="state-card error-state">
+    <h3>Unable to load tickets</h3>
+    <p>{{ errorMessage }}</p>
+    <button class="secondary-btn" (click)="retryLoad()">Retry</button>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && tickets.length === 0" class="state-card empty-state">
+    <div class="empty-icon">📭</div>
+    <h3>No assigned tickets right now</h3>
+    <p>New incidents will appear here as soon as they are assigned to the support team.</p>
+    <button class="secondary-btn" (click)="retryLoad()">Refresh List</button>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && tickets.length > 0" class="ticket-list-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Summary</th>
+          <th>Severity</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let ticket of tickets">
+          <td>{{ ticket.id }}</td>
+          <td>{{ ticket.summary }}</td>
+          <td>{{ ticket.severity }}</td>
+          <td>
+            <span class="status" [ngClass]="ticket.status.toLowerCase()">
+              {{ ticket.status }}
+            </span>
+          </td>
+          <td>
+            <a class="action-link" [routerLink]="['/support/tickets', ticket.id]">
+              Open
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

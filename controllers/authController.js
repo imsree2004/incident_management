@@ -1,43 +1,41 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import Admin from '../models/admin.js';
-import dotenv from 'dotenv';
-dotenv.config();
+import User from "../models/User.js";
+import jwt from "jsonwebtoken";
+import { Op } from "sequelize";
 
-export const register = async (req, res) => {
+export const signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-
-    const existing = await Admin.findOne({ where: { email } });
-    if (existing) return res.status(400).json({ message: 'Email already registered' });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const admin = await Admin.create({ username, email, password: hashedPassword });
-
-    res.status(201).json({ message: 'Admin registered successfully', admin });
+    const user = await User.create(req.body);
+    res.json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Error creating user", error: error.message });
   }
 };
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, username, password } = req.body;
 
-    const admin = await Admin.findOne({ where: { email } });
-    if (!admin) return res.status(404).json({ message: 'Admin not found' });
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [
+          email ? { email } : null,
+          username ? { username } : null
+        ].filter(Boolean)
+      }
+    });
 
-    const valid = await bcrypt.compare(password, admin.password);
-    if (!valid) return res.status(401).json({ message: 'Invalid password' });
+    if (!user || !(await user.validatePassword(password))) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     const token = jwt.sign(
-      { id: admin.id, email: admin.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1d' }
+      { id: user.id, username: user.username, email: user.email, role: user.role, department: user.department },
+      process.env.JWT_SECRET
     );
 
-    res.json({ message: 'Login successful', token });
+    res.json({ token, user: { id: user.id, username: user.username, email: user.email, role: user.role, department: user.department } });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Login failed", error: error.message });
+
   }
 };

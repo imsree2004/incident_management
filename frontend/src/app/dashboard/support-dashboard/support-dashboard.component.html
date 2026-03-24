@@ -1,0 +1,96 @@
+<!-- PAGE HEADER -->
+<div class="dashboard-header">
+  <h1 class="page-title">Support Dashboard</h1>
+  <p class="page-subtitle">
+    Overview of assigned tickets and system performance
+    <ng-container *ngIf="currentUser$ | async as currentUser">
+      for {{ currentUser.username }}
+    </ng-container>
+  </p>
+</div>
+
+<div *ngIf="isLoading" class="state-card">
+  <h3>Loading dashboard...</h3>
+  <p>Please wait while we fetch your latest support metrics.</p>
+</div>
+
+<div *ngIf="!isLoading && errorMessage" class="state-card error-state">
+  <h3>Unable to load dashboard</h3>
+  <p>{{ errorMessage }}</p>
+  <button class="action-btn" (click)="retryLoad()">Retry</button>
+</div>
+
+<ng-container *ngIf="!isLoading && !errorMessage">
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+
+    <div class="kpi-card">
+      <div class="kpi-label">Assigned Tickets</div>
+      <div class="kpi-value">{{ metrics.assignedTickets }}</div>
+    </div>
+
+
+
+    <div class="kpi-card">
+      <div class="kpi-label">Resolved Today</div>
+      <div class="kpi-value">{{ metrics.resolvedToday }}</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Pending</div>
+      <div class="kpi-value">{{ metrics.pendingTickets }}</div>
+    </div>
+
+  </div>
+
+  <!-- TICKETS OVERVIEW -->
+  <div class="tickets-section">
+
+    <div class="section-header">
+      <h2>Tickets Overview</h2>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-container">
+
+      <div
+        class="tab-item"
+        [class.active]="activeTab === 'tickets'"
+        (click)="setTab('tickets')"
+      >
+        Active Work
+      </div>
+
+      <div
+        class="tab-item"
+        [class.active]="activeTab === 'resolved'"
+        (click)="setTab('resolved')"
+      >
+        Resolved
+      </div>
+
+    </div>
+
+    <!-- TAB CONTENT -->
+    <div class="tab-content">
+
+      <div *ngIf="activeTab === 'tickets'" class="content-card">
+        <h3>{{ metrics.pendingTickets }} tickets need attention</h3>
+        <p>
+          {{ metrics.pendingTickets }} tickets are currently in the queue.
+        </p>
+        <a class="action-btn secondary" routerLink="/support/tickets">Open ticket queue</a>
+      </div>
+
+      <div *ngIf="activeTab === 'resolved'" class="content-card">
+        <h3>{{ metrics.resolvedTickets }} tickets resolved overall</h3>
+        <p>
+          {{ metrics.resolvedToday }} were resolved today, and {{ metrics.resolvedTickets }} are marked resolved or closed in total.
+        </p>
+        <a class="action-btn secondary" routerLink="/support/tickets">Review all tickets</a>
+      </div>
+
+    </div>
+
+  </div>
+</ng-container>

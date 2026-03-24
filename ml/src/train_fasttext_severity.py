@@ -89,51 +89,6 @@ print("Severity distribution:")
 print(df['severity'].value_counts())
 
 # -----------------------------
-# Add Synthetic Low Severity Data (IMPORTANT)
-# -----------------------------
-
-low_examples = [
-    "no major issue just a slight delay",
-    "everything works fine just a bit slow",
-    "minor lag but usable",
-    "small delay occasionally",
-    "slight delay not affecting usage",
-    "just a small inconvenience nothing serious",
-    "system works but a little slow sometimes",
-    "not a big problem just minor delay",
-    "everything is fine just slightly slow",
-    "minor issue but overall working"
-]
-
-extra_low_df = pd.DataFrame({
-    "complaint_text": low_examples,
-    "category": ["General"] * len(low_examples),
-    "department": ["Accounts"] * len(low_examples),
-    "severity": ["Low"] * len(low_examples)
-})
-
-df = pd.concat([df, extra_low_df])
-
-# -----------------------------
-# Balance Dataset
-# -----------------------------
-
-low_df = df[df['severity'] == 'Low']
-medium_df = df[df['severity'] == 'Medium']
-high_df = df[df['severity'] == 'High']
-
-min_size = min(len(low_df), len(medium_df), len(high_df))
-
-low_df = low_df.sample(min_size, random_state=42)
-medium_df = medium_df.sample(min_size, random_state=42)
-high_df = high_df.sample(min_size, random_state=42)
-
-df = pd.concat([low_df, medium_df, high_df])
-
-print("\nBalanced Severity Distribution:")
-print(df['severity'].value_counts())
-
-# -----------------------------
 # Text Cleaning (FastText-friendly)
 # -----------------------------
 
@@ -180,10 +135,8 @@ model = fasttext.train_supervised(
     epoch=40,
     lr=0.5,
     wordNgrams=2,
-    dim=100,
-    minn=2,
-    maxn=5,
-    loss="softmax"
+    dim=200,
+    loss='softmax'
 )
 
 # -----------------------------

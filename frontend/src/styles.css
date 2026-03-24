@@ -1,0 +1,167 @@
+/* ================================
+   AIIMS ENTERPRISE DESIGN SYSTEM
+================================ */
+
+:root {
+  --primary: #1e3a8a;              /* Deep professional navy */
+  --primary-dark: #172554;
+  --primary-light: #e0e7ff;
+
+  --accent: #7c3aed;               /* Violet accent */
+  --accent-soft: #ede9fe;
+
+  --bg-main: #f8fafc;
+  --bg-soft: #f1f5f9;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --border-light: #e5e7eb;
+}
+
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ===== Container ===== */
+.content {
+  width: 100%;
+  padding: 0;
+}
+
+/* ===== Page Title ===== */
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: var(--primary);
+}
+
+/* ===== Card ===== */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* ===== Table ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border-bottom: 1px solid var(--border-light);
+}
+
+td {
+  padding: 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ===== Buttons ===== */
+button {
+  font-family: inherit;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(30, 58, 138, 0.25);
+}
+
+/* ===== Links ===== */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+/* ============================
+   SECTION SYSTEM (Landing Style)
+============================ */
+
+.section {
+  padding: 90px 80px;
+}
+
+.section.light {
+  background: #ffffff;
+}
+
+.section.soft {
+  background: #f8fafc;
+}
+
+.section.hero {
+  padding: 110px 80px;
+  background: linear-gradient(
+    135deg,
+    #1e3a8a 0%,
+    #312e81 100%
+  );
+  color: #ffffff;
+}
+
+.section-title-large {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 600px;
+}
+
+.section.hero .section-subtitle {
+  color: rgba(255,255,255,0.85);
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

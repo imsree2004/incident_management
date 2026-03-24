@@ -1,10 +1,28 @@
+# Environment variables
+.env.local
+.env.docker
+
+# Test-only routes
+routes/testRoutes.js
+node_modules
+ml/models/
+ml-service/models/
+*.pkl
+*.model
+*.bin
+*.pt
+*.h5
+__pycache__/
+.env
+
 # =========================
 # ML artifacts (do not track)
 # =========================
 ml/models/
 ml/data/
-models/
+
 data/
+ml/models/*.pkl
 
 # Serialized ML models
 *.pkl
@@ -15,10 +33,22 @@ data/
 # Python cache
 __pycache__/
 .ipynb_checkpoints/
+node_modules/
+ml-venv/
+.env
+__pycache__/
+*.pyc
+coverage/
+dist/
+build/
+
+frontend/.angular/cache/
+dist/
+
 *.pyc
 
 # Virtual Environment & Node
-node_modules/
+
 ml-venv/
 .env
 
@@ -27,3 +57,4 @@ ml-venv/
 coverage/
 dist/
 build/
+
