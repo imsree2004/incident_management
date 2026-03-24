@@ -1,6 +1,6 @@
 # Environment variables
 .env.local
-.env
+.env.docker
 
 # Test-only routes
 routes/testRoutes.js
@@ -20,8 +20,8 @@ __pycache__/
 # =========================
 ml/models/
 ml/data/
-models/
 data/
+ml/models/*.pkl
 
 # Serialized ML models
 *.pkl

@@ -74,14 +74,19 @@ export class SupportAuthService {
     ).pipe(
       map(response => this.unwrapResponse(response)),
 
-      tap(agent => {
+      tap((res: any) => {
+      console.log("SUPPORT LOGIN RESPONSE:", res);
 
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(agent));
+      const supportUser = {
+        id: res.user.id,
+        username: res.user.username,
+        email: res.user.email,
+        token: res.token
+      };
 
-        this.supportSubject.next(agent);
-
-      })
-
+      localStorage.setItem('supportUser', JSON.stringify(supportUser));
+      this.supportSubject.next(supportUser);
+    })
     );
 
   }

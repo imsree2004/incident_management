@@ -3,33 +3,23 @@
     {{ notification.message }}
   </div>
 
-  <aside class="sidebar">
-    <div class="brand">AIIMS Admin Console</div>
+  <!-- TOP CONSOLE HEADER -->
+  <header class="console-header">
+    <div class="console-title">AIIMS Console</div>
+    <div class="topbar-right">
+      <div class="user-menu" (click)="toggleMenu()">
+        <span class="user-icon">👤</span>
+        <span class="username">{{ (currentAdmin$ | async)?.username || 'Administrator' }}</span>
+      </div>
 
-    <nav class="sidebar-nav">
-      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-    </nav>
-  </aside>
+      <div class="dropdown-menu" *ngIf="menuOpen">
+        <button type="button" class="dropdown-item" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
 
+  <!-- MAIN CONTENT -->
   <div class="main">
-    <header class="topbar">
-      <div class="topbar-left">
-        <div class="topbar-title">Admin Panel</div>
-        <div class="topbar-breadcrumb">Admin / Dashboard</div>
-      </div>
-
-      <div class="topbar-right">
-        <div class="user-menu" (click)="toggleMenu()">
-          <span class="user-icon">👤</span>
-          <span class="username">{{ (currentAdmin$ | async)?.username || 'Administrator' }}</span>
-        </div>
-
-        <div class="dropdown-menu" *ngIf="menuOpen">
-          <button type="button" class="dropdown-item" (click)="logout()">Logout</button>
-        </div>
-      </div>
-    </header>
-
     <div class="content">
       <div class="dashboard-header">
         <h1 class="dashboard-page-title">Admin Dashboard</h1>
@@ -121,4 +111,5 @@
       </ng-container>
     </div>
   </div>
+
 </div>

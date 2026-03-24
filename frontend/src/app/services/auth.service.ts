@@ -36,9 +36,18 @@ return this.http.post<Admin>(`${this.API_URL}/login`, {
 email,
 password
 }).pipe(
-tap(admin => {
-localStorage.setItem(this.STORAGE_KEY, JSON.stringify(admin));
-this.adminSubject.next(admin);
+tap((res: any) => {
+  console.log("LOGIN RESPONSE:", res);
+
+  const admin: Admin = {
+    id: res.user.id,
+    username: res.user.username,
+    email: res.user.email,
+    token: res.token
+  };
+
+  localStorage.setItem(this.STORAGE_KEY, JSON.stringify(admin));
+  this.adminSubject.next(admin);
 })
 );
 }

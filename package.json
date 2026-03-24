@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "incident_management",
   "version": "1.0.0",
@@ -22,7 +21,7 @@
     "imap-simple": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mailparser": "^3.7.5",
-    "natural": "^8.1.0",
+    "natural": "^5.0.3",
     "node-cron": "^4.2.1",
     "node-imap": "^0.9.6",
     "nodemailer": "^7.0.13",
@@ -36,47 +35,8 @@
     "nodemon": "^3.1.10",
     "sequelize-cli": "^6.6.5"
   },
+  "overrides": {
+  "afinn-165": "1.0.0"
+},
   "description": ""
 }
-=======
-{
-  "name": "incident_management",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@google/genai": "^1.43.0",
-    "@google/generative-ai": "^0.24.1",
-    "axios": "^1.13.2",
-    "bcryptjs": "^3.0.2",
-    "body-parser": "^2.2.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "imap": "^0.8.19",
-    "imap-simple": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mailparser": "^3.7.5",
-    "node-cron": "^4.2.1",
-    "node-imap": "^0.9.6",
-    "nodemailer": "^7.0.9",
-    "pg": "^8.16.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.7"
-  },
-  "type": "module",
-  "devDependencies": {
-    "@babel/preset-env": "^7.29.0",
-    "babel-jest": "^30.2.0",
-    "jest": "^30.2.0",
-    "nodemon": "^3.1.10",
-    "sequelize-cli": "^6.6.3"
-  },
-  "description": ""
-}
->>>>>>> origin/main

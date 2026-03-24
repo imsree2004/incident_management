@@ -134,6 +134,7 @@
 
 /* Right Section */
 .topbar-right {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -198,6 +199,27 @@
 
 .dropdown-item:hover {
   background: #f3f4f6;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  font-size: 18px;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 0;
+}
+
+.logout-btn:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
 }
 
 /* ===============================

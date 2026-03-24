@@ -29,7 +29,9 @@ export class SupportTicketService {
   // GET ALL TICKETS
   getTickets() {
     return this.http
-      .get<any>(`${this.baseUrl}/tickets`)
+      .get<any>(`${this.baseUrl}/tickets`, {
+  headers: this.getAuthHeaders()
+})
       .pipe(
         map(res => res?.data?.tickets || res?.tickets || res)
       );
@@ -37,14 +39,18 @@ export class SupportTicketService {
 
   getDashboardMetrics(): Observable<SupportDashboardMetrics> {
     return this.http
-      .get<ApiEnvelope<SupportDashboardMetrics> | SupportDashboardMetrics>(`${this.baseUrl}/tickets/metrics`)
+      .get<ApiEnvelope<SupportDashboardMetrics> | SupportDashboardMetrics>(`${this.baseUrl}/tickets/metrics`, {
+  headers: this.getAuthHeaders()
+})
       .pipe(map(res => this.unwrapResponse(res)));
   }
 
   // GET SINGLE TICKET
   getTicketById(id: number) {
     return this.http
-      .get(`${this.baseUrl}/tickets/${id}`)
+      .get(`${this.baseUrl}/tickets/${id}`, {
+  headers: this.getAuthHeaders()
+})
       .pipe(map(res => this.unwrapResponse(res)));
   }
 
@@ -53,7 +59,8 @@ export class SupportTicketService {
     return this.http
       .patch<ApiEnvelope<{ id: number; status: string }> | { message: string }>(
         `${this.baseUrl}/tickets/${id}/status`,
-        { status }
+        { status },
+  { headers: this.getAuthHeaders() }
       )
       .pipe(map(res => this.unwrapActionResponse(res)));
   }
@@ -63,7 +70,8 @@ export class SupportTicketService {
     return this.http
       .post<ApiEnvelope<{ id: number; draftReply: string }> | { message: string }>(
         `${this.baseUrl}/tickets/${id}/reply`,
-        { replyText }
+        { replyText },
+  { headers: this.getAuthHeaders() }
       )
       .pipe(map(res => this.unwrapActionResponse(res)));
   }
@@ -86,5 +94,14 @@ export class SupportTicketService {
 
     return response;
   }
+
+  private getAuthHeaders() {
+  const stored = localStorage.getItem('supportUser');
+  const token = stored ? JSON.parse(stored).token : null;
+
+  return {
+    Authorization: `Bearer ${token}`
+  };
+}
 
 }

@@ -17,7 +17,6 @@ interface TicketDetailVm {
     confidence: number;
     description: string;
   };
-  aiInsights: string;
   originalEmail: string;
 }
 
@@ -35,7 +34,6 @@ interface ToastMessage {
 })
 export class TicketDetailComponent implements OnInit, OnDestroy {
   summaryOpen = true;
-  insightsOpen = false;
   emailOpen = false;
 
   ticket: TicketDetailVm | null = null;
@@ -229,7 +227,6 @@ function mapTicket(data: any, fallbackId: number): TicketDetailVm {
       confidence: aiSummary.confidence ?? data?.confidence ?? 0,
       description: aiSummary.description ?? data?.summary ?? 'No summary available.'
     },
-    aiInsights: data?.aiInsights ?? 'No AI insights available.',
     originalEmail: data?.originalEmail ?? 'No original email available.'
   };
 }

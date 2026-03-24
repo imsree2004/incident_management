@@ -41,15 +41,39 @@ export class AdminLoginComponent {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // ✅ VALIDATION FIX
+    // Validation
     if (this.isRegister) {
-      if (!this.username || !this.email || !this.password) {
-        this.errorMessage = 'Please fill in all required fields.';
+      if (!this.username.trim()) {
+        this.errorMessage = 'Please enter a username.';
+        return;
+      }
+      if (!this.email.trim()) {
+        this.errorMessage = 'Please enter your email address.';
+        return;
+      }
+      if (!this.isValidEmail(this.email)) {
+        this.errorMessage = 'Please enter a valid email address (e.g. user@example.com).';
+        return;
+      }
+      if (!this.password) {
+        this.errorMessage = 'Please enter a password.';
+        return;
+      }
+      if (this.password.length < 8) {
+        this.errorMessage = 'Password must be at least 8 characters long.';
         return;
       }
     } else {
-      if (!this.email || !this.password) {
-        this.errorMessage = 'Please fill in all required fields.';
+      if (!this.email.trim()) {
+        this.errorMessage = 'Please enter your email address.';
+        return;
+      }
+      if (!this.isValidEmail(this.email)) {
+        this.errorMessage = 'Please enter a valid email address.';
+        return;
+      }
+      if (!this.password) {
+        this.errorMessage = 'Please enter your password.';
         return;
       }
     }
@@ -73,7 +97,13 @@ export class AdminLoginComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.isLoading = false;
-          this.errorMessage = error.error?.message || 'Registration failed.';
+          if (error.status === 409) {
+            this.errorMessage = 'An account with this email already exists. Please sign in instead.';
+          } else if (error.status === 400 && error.error?.message) {
+            this.errorMessage = error.error.message;
+          } else {
+            this.errorMessage = 'Registration failed. Please check your details and try again.';
+          }
         }
       });
 
@@ -89,12 +119,22 @@ export class AdminLoginComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.isLoading = false;
-          this.errorMessage = error.status === 401
-            ? 'Invalid email or password.'
-            : (error.error?.message || 'Login failed.');
+          if (error.status === 401) {
+            this.errorMessage = 'Incorrect email or password. Please try again.';
+          } else if (error.status === 404) {
+            this.errorMessage = 'No admin account found with this email address.';
+          } else if (error.status === 0) {
+            this.errorMessage = 'Unable to connect to the server. Please check your connection.';
+          } else {
+            this.errorMessage = error.error?.message || 'Login failed. Please try again.';
+          }
         }
       });
 
     }
+  }
+
+  private isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   }
 }

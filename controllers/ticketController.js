@@ -3,6 +3,7 @@ import Complaint from "../models/Complaint.js";
 import { generateTicketNumber } from "../utils/ticketNumberGenerator.js";
 import { extractTicketNumber } from "../utils/ticketMatcher.js";
 import User from "../models/User.js";
+import { sendMail } from "../services/mailer.js";
 
 /**
  * OLD: Manual ticket creation (admin/testing)
@@ -195,7 +196,7 @@ export const getMyTickets = async (req, res) => {
     let tickets;
 
     if (user.role === "admin") {
-    // admin sees all
+      // admin sees all
       tickets = await Ticket.findAll();
     } else {
       // agent sees only assigned
@@ -226,14 +227,14 @@ export const getSupportDashboardMetrics = async (req, res) => {
       Ticket.count({ where: { assigned_to: userId } }),
       Ticket.count({ where: { assigned_to: userId, status: "OPEN" } }),
       Ticket.count({ where: { assigned_to: userId, status: "RESOLVED" } }),
-      Ticket.count({ 
-        where: { 
-          assigned_to: userId, 
+      Ticket.count({
+        where: {
+          assigned_to: userId,
           status: "RESOLVED",
           updatedAt: { [Op.gte]: today }
-        } 
+        }
       }),
-      Ticket.count({ where: { assigned_to: userId, status: "PENDING" } })
+      Ticket.count({ where: { assigned_to: userId, status: { [Op.ne]: "RESOLVED" } } })
     ]);
 
     res.json({
@@ -247,9 +248,53 @@ export const getSupportDashboardMetrics = async (req, res) => {
         pendingTickets: pending
       }
     });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+/**
+ * 🔥 SEND REPLY TO CUSTOMER
+ */
+export const sendReply = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { replyText } = req.body;
+
+    const ticket = await Ticket.findByPk(id);
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+
+    const complaint = await Complaint.findByPk(ticket.email_id);
+    if (!complaint) {
+      return res.status(404).json({ message: "Associated complaint not found" });
+    }
+
+    const customerEmail = complaint.from;
+    const subject = `Re: ${ticket.subject} [Ticket: ${ticket.ticket_number}]`;
+
+    console.log(`Sending reply to ${customerEmail}...`);
+    await sendMail(customerEmail, subject, replyText);
+
+    // ✅ Auto-update status to IN_PROGRESS if it was OPEN
+    if (ticket.status === "OPEN") {
+      ticket.status = "IN_PROGRESS";
+      await ticket.save();
+    }
+
+    res.json({
+      success: true,
+      message: "Reply sent successfully",
+      data: { id: ticket.id, customerEmail }
+    });
 
   } catch (error) {
-    console.error("Error fetching support metrics:", error);
-    res.status(500).json({ success: false, message: error.message });
+    console.error("Error sending reply:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to send reply",
+      error: error.message
+    });
   }
 };

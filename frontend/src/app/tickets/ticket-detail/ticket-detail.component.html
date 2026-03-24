@@ -65,16 +65,6 @@
           </div>
         </div>
 
-        <div class="ticket-card" [class.open]="insightsOpen">
-          <div class="card-header" (click)="insightsOpen = !insightsOpen">
-            <h3>AI Insights</h3>
-            <span>{{ insightsOpen ? '−' : '+' }}</span>
-          </div>
-
-          <div class="card-body">
-            <p class="ticket-text">{{ currentTicket.aiInsights }}</p>
-          </div>
-        </div>
 
         <div class="ticket-card" [class.open]="emailOpen">
           <div class="card-header" (click)="emailOpen = !emailOpen">

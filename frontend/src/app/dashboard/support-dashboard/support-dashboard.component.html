@@ -29,10 +29,7 @@
       <div class="kpi-value">{{ metrics.assignedTickets }}</div>
     </div>
 
-    <div class="kpi-card">
-      <div class="kpi-label">Open Tickets</div>
-      <div class="kpi-value">{{ metrics.openTickets }}</div>
-    </div>
+
 
     <div class="kpi-card">
       <div class="kpi-label">Resolved Today</div>
@@ -78,9 +75,9 @@
     <div class="tab-content">
 
       <div *ngIf="activeTab === 'tickets'" class="content-card">
-        <h3>{{ metrics.openTickets + metrics.pendingTickets }} tickets need attention</h3>
+        <h3>{{ metrics.pendingTickets }} tickets need attention</h3>
         <p>
-          {{ metrics.openTickets }} open and {{ metrics.pendingTickets }} pending tickets are currently in the queue.
+          {{ metrics.pendingTickets }} tickets are currently in the queue.
         </p>
         <a class="action-btn secondary" routerLink="/support/tickets">Open ticket queue</a>
       </div>

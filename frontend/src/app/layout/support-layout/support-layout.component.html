@@ -43,14 +43,14 @@
         <div class="breadcrumb">{{ breadcrumb }}</div>
       </div>
 
-      <div class="topbar-right">
+        <div class="topbar-right">
         <div class="user-menu" (click)="toggleMenu()">
           <span class="user-icon">👤</span>
           <span class="username">{{ (currentUser$ | async)?.username || 'Support Agent' }}</span>
         </div>
 
         <div class="dropdown-menu" *ngIf="menuOpen">
-          <button class="dropdown-item" (click)="logout()">Logout</button>
+          <button class="dropdown-item logout-btn" (click)="logout()">⎋</button>
         </div>
       </div>
     </header>

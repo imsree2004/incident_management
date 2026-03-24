@@ -1,11 +1,36 @@
 /* ===============================
-   ADMIN DASHBOARD – SUPPORT PORTAL STYLE
+   ADMIN DASHBOARD
 =============================== */
 
 .dashboard-shell {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background: var(--bg-main);
+}
+
+/* ===============================
+   CONSOLE HEADER (top bar)
+=============================== */
+
+.console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1e3a8a;
+  padding: 0 40px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.console-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
 .toast {
@@ -34,61 +59,10 @@
 }
 
 /* ===============================
-   SIDEBAR
-=============================== */
-
-.sidebar {
-  width: 260px;
-  background: #ffffff;
-  border-right: 1px solid var(--border-light);
-  display: flex;
-  flex-direction: column;
-  padding: 30px 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-}
-
-.brand {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 40px;
-}
-
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.sidebar-nav a {
-  text-decoration: none;
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
-  transition: 0.2s ease;
-}
-
-.sidebar-nav a:hover {
-  background: #eef2ff;
-  color: var(--primary);
-}
-
-.sidebar-nav a.active {
-  background: var(--primary);
-  color: #ffffff;
-}
-
-/* ===============================
    MAIN AREA
 =============================== */
 
 .main {
-  margin-left: 260px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -96,11 +70,11 @@
 }
 
 /* ===============================
-   TOPBAR
+   TOPBAR (kept for user menu)
 =============================== */
 
 .topbar {
-  height: 110px;
+  height: 80px;
   background: #ffffff;
   border-bottom: 1px solid var(--border-light);
   display: flex;
@@ -355,27 +329,8 @@
 }
 
 @media (max-width: 1024px) {
-  .dashboard-shell {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    position: static;
-    border-right: none;
-    border-bottom: 1px solid var(--border-light);
-  }
-
-  .main {
-    margin-left: 0;
-  }
-
-  .topbar {
-    height: auto;
-    padding: 20px 24px;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 16px;
+  .console-header {
+    padding: 0 20px;
   }
 
   .content {

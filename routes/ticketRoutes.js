@@ -6,7 +6,8 @@ import {
   getTicketById,
   updateStatus,
   updateClassification,
-  getSupportDashboardMetrics
+  getSupportDashboardMetrics,
+  sendReply
 } from "../controllers/ticketController.js";
 
 import { auth } from "../middleware/authMiddleware.js";
@@ -23,7 +24,8 @@ router.get("/:id", getTicketById);
 router.post("/", createTicket);
 router.post("/intake/:complaintId", intakeComplaintAsTicket);
 
-router.put("/:id/status",auth,updateStatus);
+router.patch("/:id/status",auth,updateStatus);
 router.put("/:id/classify", updateClassification);
+router.post("/:id/reply", sendReply);
 
 export default router;

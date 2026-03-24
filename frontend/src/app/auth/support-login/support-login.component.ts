@@ -63,9 +63,32 @@ export class SupportLoginComponent implements OnInit {
     const password = this.password.trim();
     const department = this.department.trim();
 
-    if (!username || !password || (this.isRegister && (!email || !department))) {
-      this.errorMessage = 'Please fill all required fields';
+    if (!username) {
+      this.errorMessage = 'Please enter your username.';
       return;
+    }
+    if (!password) {
+      this.errorMessage = 'Please enter your password.';
+      return;
+    }
+
+    if (this.isRegister) {
+      if (!email) {
+        this.errorMessage = 'Please enter your email address.';
+        return;
+      }
+      if (!this.isValidEmail(email)) {
+        this.errorMessage = 'Please enter a valid email address (e.g. user@example.com).';
+        return;
+      }
+      if (password.length < 8) {
+        this.errorMessage = 'Password must be at least 8 characters long.';
+        return;
+      }
+      if (!department) {
+        this.errorMessage = 'Please enter your department.';
+        return;
+      }
     }
 
     this.isLoading = true;
@@ -104,8 +127,15 @@ export class SupportLoginComponent implements OnInit {
       },
 
       error: err => {
-        this.errorMessage =
-          err?.error?.message || 'Registration failed';
+        if (err?.status === 409) {
+          this.errorMessage = 'An account with this username or email already exists.';
+        } else if (err?.status === 400 && err?.error?.message) {
+          this.errorMessage = err.error.message;
+        } else if (err?.status === 0) {
+          this.errorMessage = 'Unable to connect to server. Please check your connection.';
+        } else {
+          this.errorMessage = err?.error?.message || 'Registration failed. Please try again.';
+        }
         this.successMessage = '';
         this.isLoading = false;
       }
@@ -131,11 +161,21 @@ export class SupportLoginComponent implements OnInit {
             this.router.navigate(['/support/dashboard']);
       },
       error: err => {
-        this.errorMessage =
-          err?.error?.message || 'Invalid username or password';
+        if (err?.status === 401) {
+          this.errorMessage = 'Incorrect username or password. Please try again.';
+        } else if (err?.status === 404) {
+          this.errorMessage = 'No support agent account found with this username.';
+        } else if (err?.status === 0) {
+          this.errorMessage = 'Unable to connect to server. Please check your connection.';
+        } else {
+          this.errorMessage = err?.error?.message || 'Login failed. Please try again.';
+        }
         this.isLoading = false;
       }
     });
   }
 
+  private isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  }
 }

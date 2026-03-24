@@ -31,7 +31,7 @@ export class SupportDashboardComponent implements OnInit {
   ) {
     this.currentUser$ = this.authService.support$;
   }
-
+  
   ngOnInit(): void {
     this.loadMetrics();
   }
