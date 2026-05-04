@@ -12,12 +12,6 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  ml:
-    build: ./ml-service
-    restart: always
-    ports:
-      - "8000:8000"
-
   backend:
     build: .
     env_file:
@@ -27,13 +21,11 @@ services:
       - "5000:5000"
     depends_on:
       - postgres
-      - ml
     environment:
       DB_HOST: postgres
       DB_USER: postgres
       DB_PASSWORD: sethulakshmi1
       DB_NAME: incident_management
-      ML_URL: http://ml:8000
 
 volumes:
   pgdata:

@@ -1,4 +1,0 @@
-fastapi
-uvicorn
-pydantic
-fasttext-wheel # fasttext-wheel is generally easier to install than pure fasttext

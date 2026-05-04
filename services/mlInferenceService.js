@@ -22,17 +22,17 @@ export const runML = async (text) => {
 
     const result = response.data;
 
-    // ✅ Normalize department
+    // Normalize department
     let department = result.department?.toLowerCase();
 
-    // 🔁 Map API output to your system
+    // Map API output to your system
     if (department === "it") department = "technical"; // adjust if needed
 
     if (!["security", "accounts", "general", "technical"].includes(department)) {
       department = "general";
     }
 
-    // ✅ Normalize severity
+    // Normalize severity
     const severity = result.severity?.toLowerCase();
 
     return {

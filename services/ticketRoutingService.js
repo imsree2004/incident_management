@@ -24,7 +24,7 @@ console.log("Before fallback:", {
     department = "general";
   }
 
-  // ✅ get agents sorted by least load
+  // get agents sorted by least load
   const agents = await User.findAll({
     where: { role: "agent", department },
     order: [["current_load", "ASC"]]
@@ -34,14 +34,14 @@ console.log("Before fallback:", {
     throw new Error(`No agents found in DB for department: ${department}`);
   }
 
-  // ✅ pick least loaded agent
+  // pick least loaded agent
   const selectedAgent = agents[0];
 
-  // ✅ update load
+  // update load
   selectedAgent.current_load += 1;
   await selectedAgent.save();
 
-  // ✅ assign ticket
+  // assign ticket
   await ticket.update({
     department,
     assigned_to: selectedAgent.id,
